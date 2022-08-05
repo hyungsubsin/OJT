@@ -9,5 +9,13 @@ const getChildCareCenter = async () => {
     console.error(err);
   }
 };
+const addChildCareCenter = async (data: ChildcarecenterDTO) => {
+  try {
+    const center = new Childcarecenter(data);
+    return center.save();
+  } catch (err) {
+    console.error(err);
+  }
+};
 
-export default { getChildCareCenter };
+export default { getChildCareCenter, addChildCareCenter };

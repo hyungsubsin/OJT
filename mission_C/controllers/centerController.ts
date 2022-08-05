@@ -21,4 +21,14 @@ const insertData = async (req: Request, res: Response) => {
   }
 };
 
-export default { getAllData, insertData };
+const updateData = async (req: Request, res: Response) => {
+  try {
+    const modifyChildCareCenter = await centerService.modifyChildCareCenter(req.params.id, req.body.data);
+    return res.status(200).send('modify success');
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
+export default { getAllData, insertData, updateData };

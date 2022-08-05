@@ -17,5 +17,13 @@ const addChildCareCenter = async (data: ChildcarecenterDTO) => {
     console.error(err);
   }
 };
+const modifyChildCareCenter = async (id: string, data: any) => {
+  try {
+    const objectId = new mongoose.Types.ObjectId(id);
+    return await Childcarecenter.findByIdAndUpdate({ _id: objectId }, data);
+  } catch (err) {
+    console.error(err);
+  }
+};
 
-export default { getChildCareCenter, addChildCareCenter };
+export default { getChildCareCenter, addChildCareCenter, modifyChildCareCenter };

@@ -4,8 +4,11 @@ import mongoose from 'mongoose';
 const app = express();
 const port = 3000;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 mongoose
-  .connect('mongodb://localhost:27017/daycarecenter')
+  .connect('mongodb://localhost:27017/childcarecenter')
   .then(() => {
     console.log('connected to mongoDB');
   })

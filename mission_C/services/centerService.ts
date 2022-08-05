@@ -26,4 +26,13 @@ const modifyChildCareCenter = async (id: string, data: any) => {
   }
 };
 
-export default { getChildCareCenter, addChildCareCenter, modifyChildCareCenter };
+const deleteChildCareCenter = async (id: string) => {
+  try {
+    const objectId = new mongoose.Types.ObjectId(id);
+    return await Childcarecenter.deleteOne({ _id: objectId });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export default { getChildCareCenter, addChildCareCenter, modifyChildCareCenter, deleteChildCareCenter };

@@ -10,6 +10,9 @@ const port = process.env.port!;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.set('view engine', 'ejs');
+app.set('views', './views');
+
 mongoose
   .connect(mongoUrl)
   .then(() => {
@@ -20,6 +23,10 @@ mongoose
   });
 
 app.use(router);
+
+app.get('/', (req, res) => {
+  res.render('index');
+});
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);

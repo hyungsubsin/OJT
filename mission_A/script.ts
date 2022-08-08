@@ -1,11 +1,11 @@
+import '../env';
 import axios from 'axios';
 import mongoose from 'mongoose';
-import Childcarecenter from '../schemas/Childcarecenter';
+import Childcarecenter from '../schemas/childcarecenter';
 
 const getChildCareCenterData = async () => {
   try {
-    await mongoose.connect('mongodb://localhost:27017/childcarecenter');
-    const baseURL = 'https://data-api.myfranchise.kr/v1';
+    const baseURL = process.env.baseUrl!;
     const size = 1000;
     const recentVersionData = await axios.get(`${baseURL}/school/childcare/latest`);
     let version = recentVersionData.data.id;
@@ -35,11 +35,10 @@ const getChildCareCenterData = async () => {
         });
       });
     }
-
     await Childcarecenter.insertMany(centerList).then((error) => console.error(error));
   } catch (error) {
     console.error(error);
   }
 };
 
-// getChildCareCenterData();
+export default { getChildCareCenterData };

@@ -1,5 +1,5 @@
 import { Schema, model, connect } from 'mongoose';
-import { Childcarecenter } from '../interfaces/Childcarecenter';
+import { Childcarecenter } from '../interfaces/childcarecenter';
 
 const childcarecenterSchema = new Schema({
   name: { type: String, required: true },

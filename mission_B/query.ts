@@ -1,5 +1,4 @@
 // 서울시 위도 / 경도 : 37° 33' 58" N / 126° 58' 42"
-import mongoose from 'mongoose';
 
 // db.getCollection("childcarecenters").find({
 //     address: {$regex: ".*서울특별시.*"}

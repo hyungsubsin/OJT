@@ -42,3 +42,6 @@ const getChildCareCenterData = async () => {
 };
 
 export default { getChildCareCenterData };
+
+// update logic add
+// db index 처리(성능 개선)

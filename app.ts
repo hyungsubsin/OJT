@@ -10,7 +10,7 @@ const port = process.env.port!;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.set('view engine', 'ejs');
+app.set('view engine', 'pug');
 app.set('views', './views');
 
 mongoose

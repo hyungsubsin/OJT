@@ -79,7 +79,7 @@ const getCenterInMultiPolygon = async (multiPolygon: any) => {
 
 const getChildCareCenter = async () => {
   try {
-    return await Childcarecenter.find({});
+    return await Childcarecenter.find({}).lean();
   } catch (err) {
     console.error(err);
   }

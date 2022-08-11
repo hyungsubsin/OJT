@@ -2,6 +2,7 @@ import './env';
 import express from 'express';
 import mongoose from 'mongoose';
 import router from './mission_C/routes/index';
+import './mission_A/scheduler';
 
 const app = express();
 const mongoUrl = process.env.mongoUrl!;

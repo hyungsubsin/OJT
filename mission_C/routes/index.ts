@@ -3,6 +3,6 @@ import centerRouter from './centerRouter';
 
 const router = Router();
 
-router.use('/childcarecenter', centerRouter);
+router.use('/', centerRouter);
 
 export default router;

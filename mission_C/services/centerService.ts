@@ -3,6 +3,7 @@ import { ChildcarecenterDTO } from '../../interfaces/childcarecenter';
 import mongoose from 'mongoose';
 import * as terraformer from 'terraformer-wkt-parser';
 import script from '../../mission_A/script';
+import { AnyAaaaRecord } from 'dns';
 
 const getRecentData = async () => {
   try {
@@ -84,6 +85,15 @@ const getChildCareCenter = async () => {
     console.error(err);
   }
 };
+
+const getOneChildCareCenter = async (id: any) => {
+  try {
+    const objectId = new mongoose.Types.ObjectId(id);
+    return await Childcarecenter.findOne({ _id: objectId });
+  } catch (err) {
+    console.error(err);
+  }
+};
 const addChildCareCenter = async (data: ChildcarecenterDTO) => {
   try {
     const center = new Childcarecenter(data);
@@ -116,6 +126,7 @@ export default {
   getCenterInCoordinate,
   getCenterInMultiPolygon,
   getChildCareCenter,
+  getOneChildCareCenter,
   addChildCareCenter,
   modifyChildCareCenter,
   deleteChildCareCenter,

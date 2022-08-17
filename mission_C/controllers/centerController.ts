@@ -48,6 +48,20 @@ const getCenterInMultiPolygon = async (req: Request, res: Response) => {
 const getAllData = async (req: Request, res: Response) => {
   try {
     const data = await centerService.getChildCareCenter();
+    return res.render('getdata', data);
+    // console.log('hello');
+    // return res.json(data).status(200);
+  } catch (err) {
+    console.error(err);
+    res.status(500).send();
+  }
+};
+
+const getOneData = async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const data = await centerService.getOneChildCareCenter(req.params.id);
+    res.render('data', data!);
     return res.json(data).status(200);
   } catch (err) {
     console.error(err);
@@ -56,6 +70,7 @@ const getAllData = async (req: Request, res: Response) => {
 };
 const insertData = async (req: Request, res: Response) => {
   try {
+    const { name, cellPhone, homePageUrl, childrenCount, startAt, use_naver_coord, address, lng, lat } = req.body;
     const addChildCareCenter = await centerService.addChildCareCenter(req.body as ChildcarecenterDTO);
     return res.json(req.body).status(201);
   } catch (err) {
@@ -66,6 +81,7 @@ const insertData = async (req: Request, res: Response) => {
 
 const updateData = async (req: Request, res: Response) => {
   try {
+    const { name, cellPhone, homePageUrl, childrenCount, startAt, use_naver_coord, address, lng, lat } = req.body;
     const modifyChildCareCenter = await centerService.modifyChildCareCenter(req.params.id, req.body.data);
     return res.status(200).send('modify success');
   } catch (err) {
@@ -90,6 +106,7 @@ export default {
   getCenterInCoordinate,
   getCenterInMultiPolygon,
   getAllData,
+  getOneData,
   insertData,
   updateData,
   deleteData,

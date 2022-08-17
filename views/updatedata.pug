@@ -1,0 +1,40 @@
+doctype html
+html
+  head
+    title Childcarecenter
+  body
+      h3 update centerdata
+      form(id="update" method="post" action="/updatecenterdata/:id")
+        table
+          tbody
+              tr
+                  th name
+                  td: input(type='text' name='name')
+              tr
+                  th cellphone
+                  td: input(name='cellphone')
+              tr
+                  th homePageUrl
+                  td: input(name='homePageUrl')
+              tr 
+                  th childrencount 
+                  td: input(name='childrenCount')
+              tr 
+                  th startat
+                  td: input(name='startAt')
+              tr 
+                  th usenavercoord
+                  td: input(name='use_naver_coord')
+              tr
+                  th address
+                  td: input(name='address')
+              tr 
+                  th lng
+                  td: input(name='lng')
+              tr 
+                  th lat
+                  td: input(name='lat')
+              
+              td
+                  td(colspan="2")
+                      input(type="submit" value="submit")

@@ -5,6 +5,8 @@ import * as terraformer from 'terraformer-wkt-parser';
 import script from '../../mission_A/script';
 import { AnyAaaaRecord } from 'dns';
 
+mongoose.Schema.Types.Boolean.convertToFalse.add('');
+
 const getRecentData = async () => {
   try {
     return await script.getChildCareCenterData();
@@ -80,16 +82,16 @@ const getCenterInMultiPolygon = async (multiPolygon: any) => {
 
 const getChildCareCenter = async () => {
   try {
-    return await Childcarecenter.find({}).lean();
+    return await Childcarecenter.find({}).limit(10).lean();
   } catch (err) {
     console.error(err);
   }
 };
 
-const getOneChildCareCenter = async (id: any) => {
+const getOneChildCareCenter = async (id: string) => {
   try {
     const objectId = new mongoose.Types.ObjectId(id);
-    return await Childcarecenter.findOne({ _id: objectId });
+    return await Childcarecenter.findById(objectId);
   } catch (err) {
     console.error(err);
   }

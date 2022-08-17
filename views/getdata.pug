@@ -9,10 +9,10 @@ html
         each value in data
             tr 
                 td
-                    a(href = `/childcarecenter/getonedata/${id}`) = value.name
+                    a(href=`/getonedata/${value._id}`)=value.name
     //-  a(href='/childcarecenter/getcenterdata/') getcenterdata
-    //-   //- ul.list-group
-    //-   //-   each value in data    
+      //- ul.list-group
+      //-   each value in data    
 
       name: { type: String, required: true, index: true },
 //-   cellPhone: String

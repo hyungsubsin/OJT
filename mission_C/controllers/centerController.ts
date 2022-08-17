@@ -48,21 +48,21 @@ const getCenterInMultiPolygon = async (req: Request, res: Response) => {
 const getAllData = async (req: Request, res: Response) => {
   try {
     const data = await centerService.getChildCareCenter();
-    return res.render('getdata', data);
+    res.render('getdata', { data });
     // console.log('hello');
     // return res.json(data).status(200);
   } catch (err) {
     console.error(err);
-    res.status(500).send();
+    // res.status(500).send();
   }
 };
 
 const getOneData = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
     const data = await centerService.getOneChildCareCenter(req.params.id);
-    res.render('data', data!);
-    return res.json(data).status(200);
+    console.log(data);
+    res.render('data', { data } || {});
+    // return res.json(data).status(200);
   } catch (err) {
     console.error(err);
     res.status(500).send();

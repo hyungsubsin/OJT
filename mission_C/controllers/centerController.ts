@@ -60,7 +60,6 @@ const getAllData = async (req: Request, res: Response) => {
 const getOneData = async (req: Request, res: Response) => {
   try {
     const data = await centerService.getOneChildCareCenter(req.params.id);
-    console.log(data);
     res.render('data', { data } || {});
     // return res.json(data).status(200);
   } catch (err) {
@@ -81,9 +80,12 @@ const insertData = async (req: Request, res: Response) => {
 
 const updateData = async (req: Request, res: Response) => {
   try {
+    const data: any = await centerService.getOneChildCareCenter(req.params.id);
     const { name, cellPhone, homePageUrl, childrenCount, startAt, use_naver_coord, address, lng, lat } = req.body;
     const modifyChildCareCenter = await centerService.modifyChildCareCenter(req.params.id, req.body.data);
-    return res.status(200).send('modify success');
+    res.render('updatedata', { data } || {});
+    res.redirect(`/getonedata/${data._id}`);
+    // return res.status(200).send('modify success');
   } catch (err) {
     console.error(err);
     res.status(500).send();

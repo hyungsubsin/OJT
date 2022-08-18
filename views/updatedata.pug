@@ -4,36 +4,36 @@ html
     title Childcarecenter
   body
       h3 update centerdata
-      form(id="update" method="post" action="/updatecenterdata/:id")
+      form(id="update" method="post" action=`/updatecenterdata/${data._id}`)
         table
           tbody
               tr
                   th name
-                  td: input(type='text' name='name')
+                  td: input(type='text' name='name' value=data.name)
               tr
                   th cellphone
-                  td: input(name='cellphone')
+                  td: input(name='cellphone' value=data.cellPhone)
               tr
                   th homePageUrl
-                  td: input(name='homePageUrl')
+                  td: input(name='homePageUrl' value=data.homePageUrl)
               tr 
                   th childrencount 
-                  td: input(name='childrenCount')
+                  td: input(name='childrenCount' value=data.childrenCount)
               tr 
                   th startat
-                  td: input(name='startAt')
+                  td: input(name='startAt' value=data.startAt)
               tr 
                   th usenavercoord
-                  td: input(name='use_naver_coord')
+                  td: input(name='use_naver_coord' value=data.use_naver_coord)
               tr
                   th address
-                  td: input(name='address')
+                  td: input(name='address' value=data.address)
               tr 
                   th lng
-                  td: input(name='lng')
+                  td: input(name='lng' value=data.lng)
               tr 
                   th lat
-                  td: input(name='lat')
+                  td: input(name='lat' value=data.lat)
               
               td
                   td(colspan="2")

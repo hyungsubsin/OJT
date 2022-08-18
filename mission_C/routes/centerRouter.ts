@@ -14,17 +14,17 @@ router.get('/insertdata', (req, res) => {
   res.render('insertdata');
 });
 
-router.get('/updatedata', (req, res) => {
-  res.render('updatedata');
-});
-router.post('/saverecentdata', centerController.getRecentData);
+// router.get('/updatedata', (req, res) => {
+//   res.render('updatedata');
+// });
+router.get('/saverecentdata', centerController.getRecentData);
 router.get('/childcarecenterin', centerController.getNumberOfChildCareCenterIn);
 router.get('/coordinates', centerController.getCenterInCoordinate);
 router.get('/multipolygon', centerController.getCenterInMultiPolygon);
 router.get('/getdata', centerController.getAllData);
 router.get('/getonedata/:id', centerController.getOneData);
 router.post('/addcenterdata', centerController.insertData);
-router.patch('/updatecenterdata/:id', centerController.updateData);
+router.get('/updatecenterdata/:id', centerController.updateData);
 router.delete('/deletecenterdata/:id', centerController.deleteData);
 
 export default router;

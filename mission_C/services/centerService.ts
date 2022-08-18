@@ -82,7 +82,7 @@ const getCenterInMultiPolygon = async (multiPolygon: any) => {
 
 const getChildCareCenter = async () => {
   try {
-    return await Childcarecenter.find({}).limit(10).lean();
+    return await Childcarecenter.find({}).sort({ createdAt: -1 }).limit(10).lean();
   } catch (err) {
     console.error(err);
   }
@@ -107,7 +107,7 @@ const addChildCareCenter = async (data: ChildcarecenterDTO) => {
 const modifyChildCareCenter = async (id: string, data: any) => {
   try {
     const objectId = new mongoose.Types.ObjectId(id);
-    return await Childcarecenter.findByIdAndUpdate({ _id: objectId }, data);
+    return await Childcarecenter.findByIdAndUpdate(objectId, data);
   } catch (err) {
     console.error(err);
   }

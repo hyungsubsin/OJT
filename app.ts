@@ -1,4 +1,4 @@
-import './env';
+import './env.ts';
 import express from 'express';
 import mongoose from 'mongoose';
 import router from './mission_C/routes/index';

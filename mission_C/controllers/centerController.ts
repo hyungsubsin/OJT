@@ -49,7 +49,6 @@ const getAllData = async (req: Request, res: Response) => {
   try {
     const data = await centerService.getChildCareCenter();
     res.render('getdata', { data });
-    // console.log('hello');
     // return res.json(data).status(200);
   } catch (err) {
     console.error(err);
@@ -80,11 +79,12 @@ const insertData = async (req: Request, res: Response) => {
 
 const updateData = async (req: Request, res: Response) => {
   try {
-    const data: any = await centerService.getOneChildCareCenter(req.params.id);
+    const data = await centerService.getOneChildCareCenter(req.params.id);
     const { name, cellPhone, homePageUrl, childrenCount, startAt, use_naver_coord, address, lng, lat } = req.body;
-    const modifyChildCareCenter = await centerService.modifyChildCareCenter(req.params.id, req.body.data);
+    const modifyChildCareCenter = await centerService.modifyChildCareCenter(req.params.id, req.body);
+    console.log(data);
     res.render('updatedata', { data } || {});
-    res.redirect(`/getonedata/${data._id}`);
+    // res.redirect(`/getonedata/${data._id}`);
     // return res.status(200).send('modify success');
   } catch (err) {
     console.error(err);
@@ -113,3 +113,9 @@ export default {
   updateData,
   deleteData,
 };
+
+//debugging
+//dotenv example 추가
+// 갱신 : update (비교문 x)
+// 동작시 결과 검증 보여주기
+// console.log

@@ -5,37 +5,39 @@ html
   body    
     div.addcenterdata
       h3 insert centerdata
-      form(id="insert" method="post" action="/addcenterdata")
+      - var action = data ? `/updatecenterdata/${data._id}` : "/addcenterdata"
+      form(id="insert" method="post" action=action)
         table
           tbody
               tr
                   th name
-                  td: input(type='text' name='name')
+                  td: input(type='text' name='name' value=data&&data.name)
               tr
                   th cellphone
-                  td: input(name='cellphone')
+                  td: input(name='cellphone' value=data&&data.cellPhone)
               tr
                   th homePageUrl
-                  td: input(name='homePageUrl')
+                  td: input(name='homePageUrl' value=data&&data.homePageUrl)
               tr 
                   th childrencount 
-                  td: input(name='childrenCount')
+                  td: input(name='childrenCount' value=data&&data.childrenCount)
               tr 
                   th startat
-                  td: input(name='startAt')
+                  td: input(name='startAt' value=data&&data.startAt) 
               tr 
                   th usenavercoord
-                  td: input(name='use_naver_coord')
+                  td: input(name='use_naver_coord' value=data&&data.use_naver_coord)
               tr
                   th address
-                  td: input(name='address')
+                  td: input(name='address' value=data&&data.address)
               tr 
                   th lng
-                  td: input(name='lng')
+                  td: input(name='lng' value=data&&data.lng)
               tr 
                   th lat
-                  td: input(name='lat')
+                  td: input(name='lat' value=data&&data.lat)
               
               td
                   td(colspan="2")
-                      input(type="submit" value="submit")
+                      - var value = data ? "수정" : "등록"
+                      input(type="submit" value=value)

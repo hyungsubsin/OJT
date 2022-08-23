@@ -104,8 +104,8 @@ const getUpdateData = async (req: Request, res: Response) => {
 const deleteData = async (req: Request, res: Response) => {
   try {
     const deleteChildCareCenter = await centerService.deleteChildCareCenter(req.params.id);
-    res.redirect('/getdata');
-    // return res.status(200).send('delete success');
+
+    return res.status(200).send('delete success');
   } catch (err) {
     console.error(err);
     res.status(500).send();

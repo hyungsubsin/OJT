@@ -2,6 +2,7 @@ html
   head
     title Childcarecenter
   body
+  block content
     h1 Childcarecenter
     div.getchildcarecenter
       table
@@ -35,3 +36,34 @@ html
                   td=data.lat
     div.updatecenterdata
         a(href=`/updatedata/${data._id}`) update centerdata
+    div.deletecenterdata
+        td
+            button.delete(onclick=`deleteData("${data._id}")`) delete centerdata
+        script(type="text/javascript").
+            function deleteData(id){        
+                fetch('/deletecenterdata/' + id, { method: 'delete' })
+                .then((res) => {
+                    if (res.ok) {
+                        alert('삭제가 완료되었습니다.');
+                        window.location.href='/getdata';  // 삭제 완료 후 게시글 목록으로 이동
+                    }else{
+                        alert('오류가 발생했습니다.');
+                        console.log(res.statusText);
+                    }
+                }) 
+                .catch((err) => {
+                    console.error(err);
+                    alert('오류가 발생했습니다.');
+                })
+            };
+    
+        
+        //- script(type="text/javascript" src='src.js').
+        
+
+        //- td
+            //- button(type='button' onclick=deleteData(data._id)) delete
+            //- button.delete(
+            //-     onclick=`deleteData(${data._id})`) delete
+    
+        

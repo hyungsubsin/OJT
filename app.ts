@@ -5,6 +5,7 @@ import router from './mission_C/routes/index';
 import './mission_A/scheduler';
 import path from 'path';
 import Childcarecenter from './schemas/childcarecenter';
+import methodOverride from 'method-override';
 
 const app = express();
 const mongoUrl = process.env.mongoUrl!;
@@ -12,6 +13,7 @@ const port = process.env.port!;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(methodOverride());
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '/views'));

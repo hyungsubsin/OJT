@@ -79,12 +79,10 @@ const insertData = async (req: Request, res: Response) => {
 
 const updateData = async (req: Request, res: Response) => {
   try {
-    const data = await centerService.getOneChildCareCenter(req.params.id);
+    const data: any = await centerService.getOneChildCareCenter(req.params.id);
     const { name, cellPhone, homePageUrl, childrenCount, startAt, use_naver_coord, address, lng, lat } = req.body;
     const modifyChildCareCenter = await centerService.modifyChildCareCenter(req.params.id, req.body);
-    console.log(data);
-    res.render('updatedata', { data } || {});
-    // res.redirect(`/getonedata/${data._id}`);
+    res.redirect(`/getonedata/${data._id}`);
     // return res.status(200).send('modify success');
   } catch (err) {
     console.error(err);
@@ -92,10 +90,22 @@ const updateData = async (req: Request, res: Response) => {
   }
 };
 
+const getUpdateData = async (req: Request, res: Response) => {
+  try {
+    const data: any = await centerService.getOneChildCareCenter(req.params.id);
+    console.log(data);
+    res.render('updatedata', { data });
+  } catch (err) {
+    console.error(err);
+    res.status(500).send;
+  }
+};
+
 const deleteData = async (req: Request, res: Response) => {
   try {
     const deleteChildCareCenter = await centerService.deleteChildCareCenter(req.params.id);
-    return res.status(200).send('delete success');
+    res.redirect('/getdata');
+    // return res.status(200).send('delete success');
   } catch (err) {
     console.error(err);
     res.status(500).send();
@@ -111,6 +121,7 @@ export default {
   getOneData,
   insertData,
   updateData,
+  getUpdateData,
   deleteData,
 };
 

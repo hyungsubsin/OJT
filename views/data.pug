@@ -44,26 +44,20 @@ html
                 fetch('/deletecenterdata/' + id, { method: 'delete' })
                 .then((res) => {
                     if (res.ok) {
-                        alert('삭제가 완료되었습니다.');
-                        window.location.href='/getdata';  // 삭제 완료 후 게시글 목록으로 이동
+                        alert('삭제 완료');
+                        window.location.href='/getdata'; 
                     }else{
-                        alert('오류가 발생했습니다.');
+                        alert('에러 발생');
                         console.log(res.statusText);
                     }
                 }) 
                 .catch((err) => {
                     console.error(err);
-                    alert('오류가 발생했습니다.');
+                    alert('에러 발생');
                 })
             };
     
         
-        //- script(type="text/javascript" src='src.js').
-        
-
-        //- td
-            //- button(type='button' onclick=deleteData(data._id)) delete
-            //- button.delete(
-            //-     onclick=`deleteData(${data._id})`) delete
+      
     
         

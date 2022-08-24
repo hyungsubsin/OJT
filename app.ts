@@ -29,20 +29,6 @@ mongoose
 
 app.use(router);
 
-// app.get('/', (req, res) => {
-//   res.render('index');
-// });
-
-// app.get('/:id', async (req, res, next) => {
-//   const { id } = req.params;
-//   const data = await Childcarecenter.findOne({ id });
-//   if (!data) {
-//     next(new Error('Data notfound!'));
-//     return;
-//   }
-//   res.render('/data', { data });
-// });
-
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
 });

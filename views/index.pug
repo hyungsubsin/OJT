@@ -1,15 +1,3 @@
-
-//- router.post('/saverecentdata', centerController.getRecentData);
-//- router.get('/childcarecenterin', centerController.getNumberOfChildCareCenterIn);
-//- router.get('/coordinates', centerController.getCenterInCoordinate);
-//- router.get('/multipolygon', centerController.getCenterInMultiPolygon);
-//- router.get('/getcenterdata', centerController.getAllData);
-//- router.post('/addcenterdata', centerController.insertData);
-//- router.patch('/updatecenterdata/:id', centerController.updateData);
-//- router.delete('/deletecenterdata/:id', centerController.deleteData);
-
-
-
 doctype html
 html
   head
@@ -24,6 +12,12 @@ html
      a(href='/getdata') 데이터 조회
     div.addcenterdata
       a(href='/insertdata') 데이터 삽입
+    div.regiondata
+      a(href='/regiondata') 해당 지역 내 어린이집 숫자 구하기
+    div.coordinatedata
+      a(href='/coordinatedata') 해당 좌표로부터 해당 거리 내에 있는 어린이집 구하기
+    div.multipolygon
+      a(href='/multipolygon') 해당 멀티폴리곤 내 어린이집 구하기
 
       
 

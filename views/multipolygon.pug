@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    title Childcarecenter
+  body    
+    div.regiondata
+      h3 해당 멀티폴리곤 내 어린이집 구하기
+      form(id="region" method="get" action="/multipolygondata")
+        table
+          tbody
+              tr
+                  th multipolygon
+                  td: input( name="multipolygon" )
+              td
+                  td(colspan="2")
+                      input(type="submit" value="submit")

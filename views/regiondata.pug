@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title Childcarecenter
+  body    
+    div.regiondata
+      h3 해당 광역시/도 내 어린이집 구하기
+      form(id="region" method="get" action="/childcarecenterin")
+        table
+          tbody
+              tr
+                  th region
+                  td: input( name="city" )
+              
+              td
+                  td(colspan="2")
+                      input(type="submit" value="submit")

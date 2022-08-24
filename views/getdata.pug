@@ -5,21 +5,9 @@ html
   body
     h1 Childcarecenter
     div.getchildcarecenter
+      - var data = coordinateData ? coordinateData : multipolygonData ? multipolygonData : data
       table
         each value in data
             tr 
                 td
                     a(href=`/getonedata/${value._id}`)=value.name
-    //-  a(href='/childcarecenter/getcenterdata/') getcenterdata
-      //- ul.list-group
-      //-   each value in data    
-
-      name: { type: String, required: true, index: true },
-//-   cellPhone: String
-//-   homePageUrl: String,
-//-   childrenCount: Number,
-//-   startAt: String,
-//-   use_naver_coord: Boolean,
-//-   address: String,
-//-   lng: Number,
-//-   lat: Number,

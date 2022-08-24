@@ -50,9 +50,9 @@ const getCenterInCoordinate = async (lng: number, lat: number, distance: number)
   }
 };
 
-const getCenterInMultiPolygon = async (multiPolygon: any) => {
+const getCenterInMultiPolygon = async (multipolygon: any) => {
   try {
-    const geoJson = terraformer.parse(multiPolygon);
+    const geoJson = terraformer.parse(multipolygon);
     const type = Object.values(geoJson)[0];
     const coordinates = Object.values(geoJson)[1];
     const centerData = await Childcarecenter.aggregate([

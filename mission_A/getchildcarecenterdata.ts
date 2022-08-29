@@ -17,23 +17,34 @@ const getChildCareCenterData = async () => {
     } // 업데이트가 있을 시 해당 버전으로 id 변경
     const dataListURL = `${baseURL}/school/childcare/${version}`;
     let dataList = await axios.get(dataListURL);
-    let updateList: any = [];
-
+    let updateData: any = [];
+    let insertData: any = [];
+    let i = 0;
+    console.time('time');
     while (dataList.data.next) {
       let cursor = dataList.data.next;
       dataList = await axios.get(`${dataListURL}/?cursor=${cursor}&size=${size}`);
       const centerList = dataList.data.results;
       for (const value of centerList) {
-        await updateList.push({
-          updateOne: {
-            filter: { lng: value.lng, lat: value.lat },
-            update: value,
-            upsert: true,
-          },
-        });
+        const existData = await Childcarecenter.findOne({ lng: value.lng, lat: value.lat });
+        if (existData) {
+          await updateData.push(existData);
+        } else {
+          await insertData.push(value);
+          i++;
+          console.log(i);
+        }
       }
-      await Childcarecenter.bulkWrite(updateList);
     }
+
+    await Childcarecenter.insertMany(insertData);
+    for (const value of updateData) {
+      await Childcarecenter.findOneAndUpdate({ lng: value.lng, lat: value.lat }, value);
+    }
+    console.timeEnd('time');
+    // const existData = await Childcarecenter.find()
+
+    // await Childcarecenter.bulkWrite(updateList);
   } catch (error) {
     console.error(error);
   }

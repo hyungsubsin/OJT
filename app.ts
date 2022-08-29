@@ -19,7 +19,7 @@ app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, '/views'));
 
 mongoose
-  .connect(mongoUrl, { autoIndex: false })
+  .connect(mongoUrl)
   .then(() => {
     console.log('connected to mongoDB');
   })

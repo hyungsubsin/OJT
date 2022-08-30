@@ -6,7 +6,7 @@ import Childcarecenter from '../schemas/childcarecenter';
 const getChildCareCenterData = async () => {
   try {
     const baseURL = process.env.baseUrl!;
-    const size = 10000;
+    const size = 1000;
     const recentVersionData = await axios.get(`${baseURL}/school/childcare/latest`);
     let version = recentVersionData.data.id;
     const nextVersionData = await axios.get(`${baseURL}/school/childcare/${version}/next`, {
@@ -17,36 +17,53 @@ const getChildCareCenterData = async () => {
     } // 업데이트가 있을 시 해당 버전으로 id 변경
     const dataListURL = `${baseURL}/school/childcare/${version}`;
     let dataList = await axios.get(dataListURL);
-    let updateData: any = [];
-    let insertData: any = [];
-    let i = 0;
     console.time('time');
     while (dataList.data.next) {
       let cursor = dataList.data.next;
       dataList = await axios.get(`${dataListURL}/?cursor=${cursor}&size=${size}`);
       const centerList = dataList.data.results;
-      for (const value of centerList) {
-        const existData = await Childcarecenter.findOne({ lng: value.lng, lat: value.lat });
-        if (existData) {
-          await updateData.push(existData);
-        } else {
-          await insertData.push(value);
-          i++;
-          console.log(i);
-        }
-      }
+      await Promise.all(
+        centerList.map(async (data: any) => {
+          const existData = await findExistData(data);
+          if (existData) {
+            await updateExistData(data);
+            console.log('update 완료');
+          } else {
+            await insertData(data);
+            console.log('insert 완료');
+          }
+        }),
+      );
     }
-
-    await Childcarecenter.insertMany(insertData);
-    for (const value of updateData) {
-      await Childcarecenter.findOneAndUpdate({ lng: value.lng, lat: value.lat }, value);
-    }
+    console.log('전체 로직 수행 완료');
     console.timeEnd('time');
-    // const existData = await Childcarecenter.find()
-
-    // await Childcarecenter.bulkWrite(updateList);
   } catch (error) {
     console.error(error);
+  }
+};
+
+const findExistData = async (data: any) => {
+  try {
+    return await Childcarecenter.findOne({ lng: data.lng, lat: data.lat });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const updateExistData = async (data: any) => {
+  try {
+    return await Childcarecenter.findOneAndUpdate({ lng: data.lng, lat: data.lat }, data);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const insertData = async (data: any) => {
+  try {
+    const newData = new Childcarecenter(data);
+    return newData.save();
+  } catch (err) {
+    console.error(err);
   }
 };
 

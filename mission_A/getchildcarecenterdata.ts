@@ -2,6 +2,8 @@ import '../env';
 import axios from 'axios';
 import mongoose, { AnyExpression } from 'mongoose';
 import Childcarecenter from '../schemas/childcarecenter';
+import bcrypt from 'bcrypt';
+import crypto from 'crypto';
 
 const getChildCareCenterData = async () => {
   try {
@@ -24,6 +26,7 @@ const getChildCareCenterData = async () => {
       console.time('array time');
       dataList = await axios.get(`${dataListURL}/?cursor=${cursor}&size=${size}`);
       const centerList = dataList.data.results;
+
       for (const value of centerList) {
         await updateList.push({
           updateOne: {
@@ -37,14 +40,28 @@ const getChildCareCenterData = async () => {
       console.timeEnd('array time');
     }
     console.time('write time');
+    const saltRounds = 10;
+    console.time('hash');
+    await Promise.all(
+      updateList.map(async (value: any) => {
+        const data = value.updateOne.update;
+        const hash = await hashed(data);
+        value.updateOne.update.hash = hash;
+      }),
+    );
+    console.timeEnd('hash');
     await Childcarecenter.bulkWrite(updateList);
     console.timeEnd('write time');
-
     console.log('전체 로직 수행 완료');
     console.timeEnd('time');
   } catch (error) {
     console.error(error);
   }
+};
+
+const hashed = async (data: any) => {
+  return crypto.createHmac('sha256', 'mysecretkey').update(`${data.name}${data.lng}${data.lat}`).digest('hex');
+  //   return await bcrypt.hash(`${data.name}${data.lng}${data.lat}`, saltRounds);
 };
 
 const findExistData = async (data: any) => {

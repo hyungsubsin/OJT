@@ -1,7 +1,9 @@
 import '../env';
 import axios from 'axios';
-import mongoose from 'mongoose';
+import mongoose, { AnyExpression } from 'mongoose';
 import Childcarecenter from '../schemas/childcarecenter';
+import bcrypt from 'bcrypt';
+import crypto from 'crypto';
 
 const getChildCareCenterData = async () => {
   try {
@@ -17,28 +19,33 @@ const getChildCareCenterData = async () => {
     } // 업데이트가 있을 시 해당 버전으로 id 변경
     const dataListURL = `${baseURL}/school/childcare/${version}`;
     let dataList = await axios.get(dataListURL);
-    let centerList: any[] = [];
+    let updateList: any = [];
+    console.time('time');
     while (dataList.data.next) {
       let cursor = dataList.data.next;
+      console.time('array time');
       dataList = await axios.get(`${dataListURL}/?cursor=${cursor}&size=${size}`);
-      dataList.data.results.forEach((value: any) => {
-        centerList.push({
-          name: value.name,
-          cellPhone: value.cellPhone,
-          homePageUrl: value.homePageUrl,
-          childrenCount: value.childrenCount,
-          startAt: value.startAt,
-          use_naver_coord: value.use_naver_coord,
-          address: value.address,
-          lng: parseFloat(value.lng),
-          lat: parseFloat(value.lat),
+      const centerList = dataList.data.results;
+      for (const value of centerList) {
+        const hash = await hashed(value);
+        value.hash = hash;
+        await updateList.push({
+          updateOne: {
+            filter: { hash: value.hash },
+            update: value,
+            upsert: true,
+          },
         });
-      });
+      }
     }
-    await Childcarecenter.insertMany(centerList).then((error) => console.error(error));
+    await Childcarecenter.bulkWrite(updateList);
   } catch (error) {
     console.error(error);
   }
+};
+
+const hashed = async (data: any) => {
+  return crypto.createHmac('sha256', 'mysecretkey').update(`${data.name}${data.lng}${data.lat}`).digest('hex');
 };
 
 export default { getChildCareCenterData };

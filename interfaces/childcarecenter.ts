@@ -8,6 +8,7 @@ export interface Childcarecenter {
   address: string;
   lng: string;
   lat: string;
+  hash: string;
 }
 
 export interface ChildcarecenterDTO {
@@ -20,4 +21,5 @@ export interface ChildcarecenterDTO {
   address: string;
   lng: string;
   lat: string;
+  hash: string;
 }

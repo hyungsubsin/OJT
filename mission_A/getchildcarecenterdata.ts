@@ -26,34 +26,19 @@ const getChildCareCenterData = async () => {
       console.time('array time');
       dataList = await axios.get(`${dataListURL}/?cursor=${cursor}&size=${size}`);
       const centerList = dataList.data.results;
-
       for (const value of centerList) {
+        const hash = await hashed(value);
+        value.hash = hash;
         await updateList.push({
           updateOne: {
-            filter: { lng: value.lng, lat: value.lat },
+            filter: { hash: value.hash },
             update: value,
             upsert: true,
           },
         });
       }
-
-      console.timeEnd('array time');
     }
-    console.time('write time');
-    const saltRounds = 10;
-    console.time('hash');
-    await Promise.all(
-      updateList.map(async (value: any) => {
-        const data = value.updateOne.update;
-        const hash = await hashed(data);
-        value.updateOne.update.hash = hash;
-      }),
-    );
-    console.timeEnd('hash');
     await Childcarecenter.bulkWrite(updateList);
-    console.timeEnd('write time');
-    console.log('전체 로직 수행 완료');
-    console.timeEnd('time');
   } catch (error) {
     console.error(error);
   }
@@ -61,32 +46,6 @@ const getChildCareCenterData = async () => {
 
 const hashed = async (data: any) => {
   return crypto.createHmac('sha256', 'mysecretkey').update(`${data.name}${data.lng}${data.lat}`).digest('hex');
-  //   return await bcrypt.hash(`${data.name}${data.lng}${data.lat}`, saltRounds);
-};
-
-const findExistData = async (data: any) => {
-  try {
-    return await Childcarecenter.findOne({ lng: data.lng, lat: data.lat });
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-const updateExistData = async (data: any) => {
-  try {
-    return await Childcarecenter.findOneAndUpdate({ lng: data.lng, lat: data.lat }, data);
-  } catch (err) {
-    console.error(err);
-  }
-};
-
-const insertData = async (data: any) => {
-  try {
-    const newData = new Childcarecenter(data);
-    return newData.save();
-  } catch (err) {
-    console.error(err);
-  }
 };
 
 export default { getChildCareCenterData };

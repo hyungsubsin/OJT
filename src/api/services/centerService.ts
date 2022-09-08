@@ -1,8 +1,8 @@
-import Childcarecenter from '../../schemas/childcarecenter';
-import { ChildcarecenterDTO } from '../../interfaces/childcarecenter';
+import Childcarecenter from '../schemas/childcarecenter';
+import { ChildcarecenterDTO } from '../interfaces/childcarecenter';
 import mongoose from 'mongoose';
 import * as terraformer from 'terraformer-wkt-parser';
-import script from '../../mission_A/getchildcarecenterdata';
+import script from '../helpers/getchildcarecenterdata';
 import { AnyAaaaRecord } from 'dns';
 
 mongoose.Schema.Types.Boolean.convertToFalse.add('');

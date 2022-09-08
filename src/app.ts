@@ -1,10 +1,10 @@
 import './env.ts';
 import express from 'express';
 import mongoose from 'mongoose';
-import router from './mission_C/routes/index';
-import './mission_A/scheduler';
+import router from './api/routes/index';
+import './api/helpers/scheduler';
 import path from 'path';
-import Childcarecenter from './schemas/childcarecenter';
+import Childcarecenter from './api/schemas/childcarecenter';
 import methodOverride from 'method-override';
 
 const app = express();

@@ -1,8 +1,7 @@
-import '../env';
+import '../../../env';
 import axios from 'axios';
 import mongoose, { AnyExpression } from 'mongoose';
 import Childcarecenter from '../schemas/childcarecenter';
-import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 
 const getChildCareCenterData = async () => {

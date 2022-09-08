@@ -1,6 +1,6 @@
 import { Router, Request, Response } from 'express';
 import centerService from '../services/centerService';
-import { ChildcarecenterDTO } from '../../interfaces/childcarecenter';
+import { ChildcarecenterDTO } from '../interfaces/childcarecenter';
 
 const getRecentData = async (req: Request, res: Response) => {
   try {
